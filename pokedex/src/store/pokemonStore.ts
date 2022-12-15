@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-import { Pokemon, Product } from '../core/entities/pokemon'
+import { Pokemon } from '../core/entities/pokemon'
 
-export const useProductStore = defineStore('PokemonStore', {
+export const usePokemonStore = defineStore('PokemonStore', {
   state: () => {
     return {
       items: [] as Array<Pokemon>

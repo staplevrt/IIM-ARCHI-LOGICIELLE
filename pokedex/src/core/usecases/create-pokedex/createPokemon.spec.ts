@@ -6,7 +6,7 @@ import { InMemoryPokemontGateway} from '../../../adapters/secondary/InMemoryPoke
 import { FakeUUIDGenerator } from '../../../adapters/secondary/fakeUUIDGenerator'
 import { CreatePokemonDTO } from '../../dto/createPokemonDTO'
 
-describe('Create product', () => {
+describe('Create pokemon', () => {
   let pokemonGateway: InMemoryPokemontGateway
   const terre: Pokemon = {
     id: '2',
@@ -29,7 +29,7 @@ describe('Create product', () => {
     uuidGenerator = new FakeUUIDGenerator()
     pokemonGateway = new InMemoryPokemontGateway(uuidGenerator)
   })
-  describe('There is no previous product', () => {
+  describe('There is no previous pokemon', () => {
     describe('Create an pantalon', () => {
       beforeEach(async () => {
         await whenCreateProduct(terre.id, {
