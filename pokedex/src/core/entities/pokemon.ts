@@ -5,4 +5,3 @@ export interface Pokemon {
     health: number
     catchRate: number
   }
-  
