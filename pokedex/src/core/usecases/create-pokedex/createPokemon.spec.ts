@@ -9,18 +9,39 @@ import { CreatePokemonDTO } from '../../dto/createPokemonDTO'
 describe('Create pokemon', () => {
   let pokemonGateway: InMemoryPokemontGateway
   const terre: Pokemon = {
-    id: '2',
-    name: 'Bulbizar',
-    height: 3000,
-    health: 5,
+    id: '1',
+    name: 'Mew',
+    height: 104,
+    health: 120,
     catchRate: 7,
     
   }
   const electrique: Pokemon = {
-    id: '3',
+    id: '2',
     name: 'pikachu',
-    height: 3000,
-    health: 5,
+    height: 104,
+    health: 100,
+    catchRate: 9,
+  }
+  const pierre: Pokemon = {
+    id: '3',
+    name: 'onix',
+    height: 280,
+    health: 90,
+    catchRate: 8,
+  }
+  const air: Pokemon = {
+    id: '4',
+    name: 'togekiss',
+    height: 411,
+    health: 102,
+    catchRate: 7,
+  }
+  const fire: Pokemon = {
+    id: '4',
+    name: 'delcatty',
+    height: 307,
+    health: 104,
     catchRate: 7,
   }
   let uuidGenerator: FakeUUIDGenerator
@@ -30,9 +51,9 @@ describe('Create pokemon', () => {
     pokemonGateway = new InMemoryPokemontGateway(uuidGenerator)
   })
   describe('There is no previous pokemon', () => {
-    describe('Create an pantalon', () => {
+    describe('Create a pokemon', () => {
       beforeEach(async () => {
-        await whenCreateProduct(terre.id, {
+        await whenCreatePokemon(terre.id, {
             name: terre.name,
             height: terre.height,
             health: terre.health,
@@ -46,9 +67,9 @@ describe('Create pokemon', () => {
         await expectGatewayToContains(terre)
       })
     })
-    describe('Create chaussettes', () => {
+    describe('Create a pokemon', () => {
       beforeEach(async () => {
-        await whenCreateProduct(electrique.id, {
+        await whenCreatePokemon(electrique.id, {
             name: electrique.name,
             height: electrique.height,
             health: electrique.health,
@@ -66,29 +87,29 @@ describe('Create pokemon', () => {
 
   describe('There is previous product', () => {
     beforeEach(async () => {
-      givenSomeProductsExists(terre)
-      await whenCreateProduct(electrique.id, {
+      givenSomePokemonExists(terre)
+      await whenCreatePokemon(electrique.id, {
         name: electrique.name,
         height: electrique.height,
         health: electrique.health,
         catchRate: electrique.catchRate,
       })
     })
-    it('should save the product in the store', () => {
+    it('should save the pokemon in the store', () => {
       expectStoreToContains(terre, electrique)
     })
-    it('should save the product in the gateway', async () => {
+    it('should save the pokemon in the gateway', async () => {
       await expectGatewayToContains(terre, electrique)
     })
   })
 
-  const givenSomeProductsExists = (...pokemon: Array<Pokemon>) => {
+  const givenSomePokemonExists = (...pokemon: Array<Pokemon>) => {
     pokemonGateway.feedWith(...pokemon)
     const pokemonStore = usePokemonStore()
     pokemonStore.items = pokemon
   }
 
-  const whenCreateProduct = async (id: string, createPokemonDTO: CreatePokemonDTO) => {
+  const whenCreatePokemon = async (id: string, createPokemonDTO: CreatePokemonDTO) => {
     uuidGenerator.setNextUuid(id)
     await createPokemon(createPokemonDTO, pokemonGateway)
   }
